@@ -1,7 +1,7 @@
 package org.almostrealism.llama2;
 
 import io.almostrealism.code.ComputeRequirement;
-import io.almostrealism.code.OperationProfile;
+import io.almostrealism.profile.OperationProfile;
 import org.almostrealism.collect.PackedCollection;
 import org.almostrealism.ml.AttentionFeatures;
 import org.almostrealism.ml.AutoregressiveModel;
