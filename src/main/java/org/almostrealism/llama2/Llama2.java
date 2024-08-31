@@ -1,7 +1,7 @@
 package org.almostrealism.llama2;
 
 import io.almostrealism.code.ComputeRequirement;
-import io.almostrealism.code.OperationProfile;
+import io.almostrealism.profile.OperationProfile;
 import org.almostrealism.collect.PackedCollection;
 import org.almostrealism.ml.AttentionFeatures;
 import org.almostrealism.ml.AutoregressiveModel;
@@ -26,6 +26,9 @@ public class Llama2 implements AttentionFeatures {
 	private OperationProfile profile;
 
 	public static void main(String args[]) throws IOException {
+		System.setProperty("AR_HARDWARE_OFF_HEAP_SIZE", "0");
+		System.setProperty("AR_EXPRESSION_WARNINGS", "disabled");
+
 		int steps = 256;
 
 		String checkpoint = args.length > 0 ? args[0] : "stories110M.bin";
