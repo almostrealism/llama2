@@ -17,6 +17,12 @@ import java.nio.file.StandardOpenOption;
 import java.util.function.Consumer;
 
 public class Llama2 implements AttentionFeatures {
+	static {
+		System.setProperty("AR_HARDWARE_OFF_HEAP_SIZE", "0");
+		System.setProperty("AR_EXPRESSION_WARNINGS", "disabled");
+		System.setProperty("AR_GRAPH_PROPAGATION_WARNINGS", "disabled");
+	}
+
 	private Config config;
 	private Weights weights;
 	private String[] vocab;
@@ -26,9 +32,6 @@ public class Llama2 implements AttentionFeatures {
 	private OperationProfile profile;
 
 	public static void main(String args[]) throws IOException {
-		System.setProperty("AR_HARDWARE_OFF_HEAP_SIZE", "0");
-		System.setProperty("AR_EXPRESSION_WARNINGS", "disabled");
-
 		int steps = 256;
 
 		String checkpoint = args.length > 0 ? args[0] : "stories110M.bin";
@@ -100,7 +103,7 @@ public class Llama2 implements AttentionFeatures {
 
 		// Transformer layers
 		for (int i = 0; i < config.layerCount; i++) {
-			transformer.addBlock(transformer(config.headCount,
+			transformer.add(transformer(config.headCount,
 					weights.rmsAttWeights.range(shape(config.dim), i * dim),
 					weights.wk.range(shape(dim, dim), dim * dim * i),
 					weights.wv.range(shape(dim, dim), dim * dim * i),
@@ -115,10 +118,10 @@ public class Llama2 implements AttentionFeatures {
 		}
 
 		// Final RMS Norm
-		transformer.addBlock(rmsnorm(weights.rmsFinalWeight));
+		transformer.add(rmsnorm(weights.rmsFinalWeight));
 
 		// Logits
-		transformer.addBlock(dense(weights.wcls));
+		transformer.add(dense(weights.wcls));
 
 		return AutoregressiveModel.of(transformer.compile(false, profile),
 				step -> position.setMem((double) step),
