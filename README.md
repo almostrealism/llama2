@@ -18,7 +18,7 @@ model.
 
 1. Compile the project using `mvn package`
 2. Download the model weights for [stories110M.bin](https://www.dropbox.com/scl/fi/romns8veg67agl5czmtww/stories110M.bin?rlkey=sbspy97d2j1p3jilgaff190pz&st=kak6t2uo&dl=1)
-3. Run the project using `java -jar target/ar-llama2-0.3.jar` from the directory containing both the model weights and tokenizer.bin (included in this repository)
+3. Run the project using `java -jar target/ar-llama2-0.4.jar` from the directory containing both the model weights and tokenizer.bin (included in this repository)
 
 ### Will this use my GPU?
 
@@ -32,7 +32,7 @@ You can learn more about the Almost Realism HPC library via the [GitHub reposito
 Following the usage instructions above should result in something like the output below.
 
 ```shell
-Mac-Studio:llama2 michael$ java -jar target/ar-llama2-0.3.jar
+Mac-Studio:llama2 michael$ java -jar target/ar-llama2-0.4.jar
 Hardware[JNI]: Max RAM is 4096 Megabytes (FP32)
 Hardware[MTL]: Max RAM is 4096 Megabytes (FP32)
 Hardware[CL]: Using GPU 0 for kernels
